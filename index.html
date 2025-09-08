@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SplitMate - Simplifying Group Expenses</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .auth-container {
+      transition: all 0.3s ease;
+    }
+    .input-error {
+      border-color: #f87171;
+    }
+    .btn-primary {
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+  <div class="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden">
+    <div class="md:flex">
+      <!-- Left Side -->
+      <div class="md:w-1/2 bg-gradient-to-br from-blue-500 to-indigo-600 p-10 text-white flex flex-col justify-center items-center text-center">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6b47d6f6-2423-4309-966f-8f5203d2d79b.png" alt="SplitMate Logo" class="h-24 w-24 mb-6 rounded-lg">
+        <h1 class="text-3xl font-bold mb-4">SplitMate</h1>
+        <p class="text-blue-100 mb-8">The smart way to split expenses with friends, roommates, and groups.</p>
+        <ul class="space-y-3 text-left text-blue-100">
+          <li class="flex items-start"><i class="fas fa-check-circle mt-1 mr-2 text-green-300"></i>Track shared expenses effortlessly</li>
+          <li class="flex items-start"><i class="fas fa-check-circle mt-1 mr-2 text-green-300"></i>Settle up with one click</li>
+          <li class="flex items-start"><i class="fas fa-check-circle mt-1 mr-2 text-green-300"></i>No more awkward money talks</li>
+        </ul>
+      </div>
+
+      <!-- Right Side -->
+      <div class="md:w-1/2 p-10 relative overflow-hidden">
+        <!-- Tabs -->
+        <div class="flex mb-8 border-b border-gray-200">
+          <button id="login-tab" class="tab-btn py-2 px-4 font-medium text-indigo-600 border-b-2 border-indigo-600">User Login</button>
+          <button id="signup-tab" class="tab-btn py-2 px-4 font-medium text-gray-500 hover:text-indigo-500">User/Admin Signup</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="auth-container">
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <input type="email" id="login-email" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+              <p id="login-email-error" class="mt-1 text-sm text-red-600 hidden">Please enter a valid email</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+              <div class="relative">
+                <input type="password" id="login-password" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-indigo-600 toggle-password"><i class="far fa-eye"></i></button>
+              </div>
+              <p id="login-password-error" class="mt-1 text-sm text-red-600 hidden">Password must be at least 6 characters</p>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <input type="checkbox" id="remember-me" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                <label for="remember-me" class="ml-2 text-sm text-gray-700">Remember me</label>
+              </div>
+              <button type="button" id="forgot-password-btn" class="text-sm text-indigo-600 hover:text-indigo-500">Forgot password?</button>
+            </div>
+            <button type="submit" class="btn-primary w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">Sign In</button>
+          </div>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signup-form" class="auth-container hidden">
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+              <input type="text" id="signup-name" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+              <p id="signup-name-error" class="mt-1 text-sm text-red-600 hidden">Please enter your name</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <input type="email" id="signup-email" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+              <p id="signup-email-error" class="mt-1 text-sm text-red-600 hidden">Please enter a valid email</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+              <div class="relative">
+                <input type="password" id="signup-password" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-indigo-600 toggle-password"><i class="far fa-eye"></i></button>
+              </div>
+              <div class="text-xs text-gray-500 mt-1">Password must be at least 6 characters with a number or special character</div>
+              <p id="signup-password-error" class="mt-1 text-sm text-red-600 hidden"></p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+              <input type="password" id="signup-confirm-password" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+              <p id="signup-confirm-error" class="mt-1 text-sm text-red-600 hidden">Passwords don't match</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Account Type</label>
+              <div class="flex space-x-4">
+                <label class="flex items-center"><input type="radio" name="user-type" value="user" checked class="h-4 w-4 text-indigo-600"><span class="ml-2 text-sm">Regular User</span></label>
+                <label class="flex items-center"><input type="radio" name="user-type" value="admin" class="h-4 w-4 text-indigo-600"><span class="ml-2 text-sm">Admin</span></label>
+              </div>
+            </div>
+            <div id="admin-code-container" class="hidden">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Admin Verification Code</label>
+              <div class="relative">
+                <input type="password" id="admin-code" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-indigo-600 toggle-password"><i class="far fa-eye"></i></button>
+              </div>
+              <p id="admin-code-error" class="mt-1 text-sm text-red-600 hidden">Invalid admin code</p>
+              <div class="text-xs text-gray-500 mt-1">Default admin code: ADMIN123</div>
+            </div>
+            <button type="submit" class="btn-primary w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">Create Account</button>
+          </div>
+        </form>
+
+        <!-- Forgot Password -->
+        <form id="forgot-password-form" class="auth-container hidden">
+          <div class="space-y-6">
+            <h3 class="text-xl font-semibold text-gray-800">Reset Password</h3>
+            <p class="text-sm text-gray-600">Enter your email and we'll send you a reset link.</p>
+            <input type="email" id="reset-email" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+            <p id="reset-email-error" class="mt-1 text-sm text-red-600 hidden">Please enter a valid email</p>
+            <button type="submit" class="btn-primary w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">Send Reset Link</button>
+            <div class="text-center"><button type="button" id="back-to-login" class="text-sm text-indigo-600 hover:text-indigo-500">Back to Sign In</button></div>
+          </div>
+        </form>
+
+        <!-- Success -->
+        <div id="success-message" class="auth-container hidden">
+          <div class="text-center py-8">
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4"><i class="fas fa-check text-green-600"></i></div>
+            <h3 id="success-title" class="text-lg font-medium text-gray-900 mb-2">Success!</h3>
+            <p id="success-text" class="text-sm text-gray-500">Your account has been created successfully.</p>
+            <div class="mt-6"><button id="continue-btn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Continue to Dashboard</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const loginTab = document.getElementById('login-tab');
+  const signupTab = document.getElementById('signup-tab');
+  const loginForm = document.getElementById('login-form');
+  const signupForm = document.getElementById('signup-form');
+  const forgotForm = document.getElementById('forgot-password-form');
+  const successMsg = document.getElementById('success-message');
+  const forgotBtn = document.getElementById('forgot-password-btn');
+  const backBtn = document.getElementById('back-to-login');
+  const continueBtn = document.getElementById('continue-btn');
+
+  // Switch tabs
+  loginTab.onclick = () => {
+    loginForm.classList.remove('hidden');
+    signupForm.classList.add('hidden');
+    forgotForm.classList.add('hidden');
+    successMsg.classList.add('hidden');
+    loginTab.classList.add('border-indigo-600','text-indigo-600');
+    signupTab.classList.remove('border-indigo-600','text-indigo-600');
+  };
+  signupTab.onclick = () => {
+    signupForm.classList.remove('hidden');
+    loginForm.classList.add('hidden');
+    forgotForm.classList.add('hidden');
+    successMsg.classList.add('hidden');
+    signupTab.classList.add('border-indigo-600','text-indigo-600');
+    loginTab.classList.remove('border-indigo-600','text-indigo-600');
+  };
+  forgotBtn.onclick = () => {
+    loginForm.classList.add('hidden');
+    signupForm.classList.add('hidden');
+    forgotForm.classList.remove('hidden');
+  };
+  backBtn.onclick = () => {
+    forgotForm.classList.add('hidden');
+    loginForm.classList.remove('hidden');
+  };
+  continueBtn.onclick = () => alert("Redirecting to dashboard...");
+
+  // Toggle password
+  document.querySelectorAll('.toggle-password').forEach(btn=>{
+    btn.onclick = function(){
+      const input = this.parentElement.querySelector('input');
+      const icon = this.querySelector('i');
+      if(input.type === 'password'){ input.type='text'; icon.classList.replace('fa-eye','fa-eye-slash'); }
+      else { input.type='password'; icon.classList.replace('fa-eye-slash','fa-eye'); }
+    };
+  });
+
+  // Admin code toggle
+  document.querySelectorAll('input[name="user-type"]').forEach(r=>{
+    r.onchange=()=>{
+      document.getElementById('admin-code-container').classList.toggle('hidden', r.value!=='admin');
+    };
+  });
+
+  // Login validation
+  loginForm.onsubmit = e=>{
+    e.preventDefault();
+    const email=document.getElementById('login-email');
+    const pass=document.getElementById('login-password');
+    let valid=true;
+    if(!email.value.includes('@')){document.getElementById('login-email-error').classList.remove('hidden');valid=false;} 
+    else document.getElementById('login-email-error').classList.add('hidden');
+    if(pass.value.length<6){document.getElementById('login-password-error').classList.remove('hidden');valid=false;} 
+    else document.getElementById('login-password-error').classList.add('hidden');
+    if(valid){ loginForm.classList.add('hidden'); successMsg.classList.remove('hidden'); document.getElementById('success-title').innerText="Login Successful!"; document.getElementById('success-text').innerText="Redirecting to dashboard..."; }
+  };
+
+  // Signup validation
+  signupForm.onsubmit = e=>{
+    e.preventDefault();
+    const name=document.getElementById('signup-name').value.trim();
+    const email=document.getElementById('signup-email').value.trim();
+    const pass=document.getElementById('signup-password').value;
+    const confirm=document.getElementById('signup-confirm-password').value;
+    let valid=true;
+    if(!name){document.getElementById('signup-name-error').classList.remove('hidden');valid=false;}
+    else document.getElementById('signup-name-error').classList.add('hidden');
+    if(!email.includes('@')){document.getElementById('signup-email-error').classList.remove('hidden');valid=false;}
+    else document.getElementById('signup-email-error').classList.add('hidden');
+    if(pass.length<6 || (!/\d/.test(pass) && !/[!@#$%^&*]/.test(pass))){document.getElementById('signup-password-error').classList.remove('hidden');valid=false;}
+    else document.getElementById('signup-password-error').classList.add('hidden');
+    if(pass!==confirm){document.getElementById('signup-confirm-error').classList.remove('hidden');valid=false;}
+    else document.getElementById('signup-confirm-error').classList.add('hidden');
+    if(valid){ signupForm.classList.add('hidden'); successMsg.classList.remove('hidden'); }
+  };
+
+  // Forgot password validation
+  forgotForm.onsubmit = e=>{
+    e.preventDefault();
+    const email=document.getElementById('reset-email');
+    if(!email.value.includes('@')){document.getElementById('reset-email-error').classList.remove('hidden');}
+    else{document.getElementById('reset-email-error').classList.add('hidden');forgotForm.classList.add('hidden');successMsg.classList.remove('hidden');document.getElementById('success-title').innerText="Reset Email Sent!";document.getElementById('success-text').innerText="Check your inbox for reset link.";}
+  };
+});
+</script>
+</body>
+</html>
